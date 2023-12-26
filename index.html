@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Notifications page</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      @font-face {
+        font-family: PlusJakartaSans-ExtraBold;
+        src: url("./assets/fonts/static/PlusJakartaSans-ExtraBold.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: PlusJakartaSans-Medium;
+        src: url("./assets/fonts/static/PlusJakartaSans-Medium.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: PlusJakartaSans-VariableFont;
+        src: url("./assets/fonts/PlusJakartaSans-VariableFont_wght.ttf")
+          format("truetype");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: hsl(205, 33%, 90%);
+      }
+      .main-container {
+        width: 628px;
+        height: 722px;
+        position: absolute;
+        background-color: hsl(0, 0%, 100%);
+        border-radius: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .title-header {
+        display: flex;
+        flex-direction: row;
+        margin-top: 30px;
+        margin-left: 25px;
+      }
+      .text-notifications {
+        color: black;
+        font-family: PlusJakartaSans-ExtraBold;
+        font-weight: 500;
+        font-size: 18px;
+      }
+      .number-in-square {
+        color: white;
+        background-color: hsl(219, 85%, 26%);
+        font-family: PlusJakartaSans-ExtraBold;
+        font-weight: 500;
+        font-size: 14px;
+        width: 25px;
+        height: 20px;
+        text-align: center;
+        border-radius: 5px;
+        margin-left: 10px;
+      }
+      .text-mark-allread {
+        color: hsl(219, 12%, 42%);
+        font-family: PlusJakartaSans-ExtraBold;
+        font-weight: 500;
+        font-size: 13px;
+        margin-top: 5px;
+        margin-left: 330px;
+      }
+      .text-mark-allread:hover {
+        color: hsl(219, 85%, 26%);
+        cursor: pointer;
+      }
+      .text-mark-allread:active {
+        color: hsl(219, 85%, 26%);
+        cursor: pointer;
+      }
+      .main-content-notif {
+        display: flex;
+        flex-direction: column;
+        width: 575px;
+        height: 560px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .content-notif {
+        width: 575px;
+        height: 60px;
+        background-color: hsl(211, 68%, 94%);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+      }
+      .content-notif-unread-marker {
+        display: flex;
+        flex-direction: row;
+      }
+      .img-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-left: 30px;
+        margin-top: 10px;
+      }
+      .img-comment-picture {
+        width: 40px;
+        height: 40px;
+        margin-left: 160px;
+        margin-top: 10px;
+      }
+      .content-notif-detail {
+        display: flex;
+        flex-direction: column;
+        font-size: 13px;
+        color: hsl(219, 12%, 42%);
+
+        font-family: PlusJakartaSans-Medium;
+        margin-left: 20px;
+        justify-content: center;
+      }
+      .content-notif-read {
+        width: 575px;
+        height: 60px;
+        background-color: white;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+      }
+
+      .grup-name {
+        color: hsl(219, 85%, 26%);
+        font-family: PlusJakartaSans-ExtraBold;
+      }
+      .grup-name:active,
+      .grup-name:hover {
+        cursor: pointer;
+      }
+
+      .user-name {
+        color: black;
+        font-family: PlusJakartaSans-ExtraBold;
+      }
+      .user-name:active {
+        cursor: pointer;
+        color: hsl(219, 85%, 26%);
+        font-family: PlusJakartaSans-ExtraBold;
+      }
+      .user-name:hover {
+        cursor: pointer;
+        color: hsl(219, 85%, 26%);
+        font-family: PlusJakartaSans-ExtraBold;
+      }
+      .post {
+        color: hsl(219, 12%, 42%);
+        font-family: PlusJakartaSans-ExtraBold;
+      }
+      .post:active {
+        color: hsl(219, 85%, 26%);
+        cursor: pointer;
+      }
+      .post:hover {
+        color: hsl(219, 85%, 26%);
+        cursor: pointer;
+      }
+      .notif-time {
+        font-size: 13px;
+        color: hsl(219, 12%, 42%);
+        font-family: PlusJakartaSans-Medium;
+        opacity: 0.5;
+      }
+      .message-detail {
+        font-size: 13px;
+        color: hsl(219, 12%, 42%);
+
+        font-family: PlusJakartaSans-Medium;
+        margin-left: 80px;
+        border: 0.5px solid hsla(219, 12%, 42%, 0.2);
+        border-radius: 5px;
+        padding: 20px;
+      }
+      .message-detail:hover {
+        cursor: pointer;
+        background-color: hsl(211, 68%, 94%);
+      }
+      .message-detail:active {
+        cursor: pointer;
+        background-color: hsl(211, 68%, 94%);
+      }
+      .unread-marker {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: hsl(1, 90%, 64%);
+        margin-top: 5px;
+        margin-left: 10px;
+      }
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+
+      @media only screen and (max-width: 640px) {
+        .main-container {
+          width: 600px;
+          height: 722px;
+        }
+        .text-mark-allread {
+          margin-left: 300px;
+        }
+      }
+      @media only screen and (max-width: 590px) {
+        .main-container {
+          width: 550px;
+          height: 722px;
+        }
+        .text-mark-allread {
+          margin-left: 250px;
+        }
+        .content-notif {
+          width: 500px;
+          height: 60px;
+          margin-left: 35px;
+        }
+        .img-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-left: 20px;
+          margin-top: 10px;
+        }
+        .content-notif-detail {
+          font-size: 11px;
+        }
+        .notif-time {
+          font-size: 11px;
+        }
+        .unread-marker {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background-color: hsl(1, 90%, 64%);
+          margin-top: 18px;
+          margin-left: 10px;
+        }
+        .content-notif-read {
+          width: 500px;
+          height: 60px;
+          margin-left: 35px;
+        }
+        .message-detail {
+          font-size: 11px;
+          color: hsl(219, 12%, 42%);
+
+          font-family: PlusJakartaSans-Medium;
+          margin-left: 110px;
+          border: 0.5px solid hsla(219, 12%, 42%, 0.2);
+          border-radius: 5px;
+          padding: 20px;
+          width: 420px;
+          margin-bottom: 10px;
+        }
+      }
+      @media only screen and (max-width: 580px) {
+        .unread-marker {
+          margin-top: 5px;
+          margin-left: 10px;
+        
+      }
+    }
+      @media only screen and (max-width: 500px) {
+        .main-container {
+          width: 500px;
+          height: 722px;
+        }
+        .text-mark-allread {
+          margin-left: 200px;
+        }
+        .content-notif {
+          width: 450px;
+          height: 60px;
+          margin-left: 60px;
+        }
+        .img-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-left: 10px;
+          margin-top: 10px;
+        }
+        .content-notif-detail {
+          font-size: 10px;
+        }
+        .notif-time {
+          font-size: 10px;
+        }
+        .unread-marker {
+          margin-top: 5px;
+        }
+        .content-notif-read {
+          width: 450px;
+          height: 60px;
+          margin-left: 60px;
+        }
+        .message-detail {
+          width: 380px;
+          margin-left: 130px;
+          font-size: 10px;
+        }
+      }
+      @media only screen and (max-width: 460px) {
+        .main-container {
+          width: 450px;
+          height: 722px;
+        }
+        .text-mark-allread {
+          margin-left: 150px;
+          font-size: 10px;
+        }
+        .content-notif {
+          width: 400px;
+          height: 60px;
+          margin-left: 90px;
+        }
+        .title-header {
+          margin-left: 28px;
+        }
+        .img-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-left: 10px;
+          margin-top: 10px;
+        }
+        .content-notif-detail {
+          font-size: 9px;
+        }
+        .notif-time {
+          font-size: 9px;
+        }
+        .content-notif-read {
+          width: 400px;
+          height: 60px;
+          margin-left: 90px;
+        }
+        .message-detail {
+          width: 320px;
+          margin-left: 160px;
+          font-size: 9px;
+        }
+        .unread-marker {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background-color: hsl(1, 90%, 64%);
+          margin-top: 3px;
+          margin-left: 10px;
+        }
+        .text-notifications {
+          font-size: 16px;
+        }
+        .number-in-square {
+          font-size: 12px;
+          width: 24px;
+          height: 18px;
+          margin-left: 16px;
+        }
+      }
+      @media only screen and (max-width: 400px) {
+        .main-container {
+          width: 400px;
+          height: 722px;
+        }
+        .text-mark-allread {
+          margin-left: 120px;
+          font-size: 12px;
+        }
+        .content-notif {
+          width: 350px;
+          height: 60px;
+          margin-left: 120px;
+        }
+        .title-header {
+          margin-left: 28px;
+        }
+        .img-avatar {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-left: 8px;
+          margin-top: 10px;
+        }
+        .content-notif-detail {
+          font-size: 9px;
+          margin-left: 5px;
+        }
+        .notif-time {
+          font-size: 9px;
+        }
+        .content-notif-read {
+          width: 350px;
+          height: 60px;
+          margin-left: 120px;
+        }
+        .message-detail {
+          width: 300px;
+          margin-left: 160px;
+          font-size: 9px;
+        }
+        .unread-marker {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background-color: hsl(1, 90%, 64%);
+          margin-top: 4px;
+          margin-left: 3px;
+        }
+        .text-notifications {
+          font-size: 16px;
+        }
+        .number-in-square {
+          font-size: 12px;
+          width: 24px;
+          height: 18px;
+          margin-left: 16px;
+        }
+      }
+    </style>
+    <script>
+      function markAllRead() {
+        let unreadMarker = document.querySelectorAll(".unread-marker");
+        for (let j = 0; j < unreadMarker.length; j++) {
+          unreadMarker[j].style.display = "none";
+        }
+        let contentNotif = document.querySelectorAll(".content-notif");
+        for (let j = 0; j < contentNotif.length; j++) {
+          contentNotif[j].style.backgroundColor = "White";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="title-header">
+        <p class="text-notifications">Notifications</p>
+        <p class="number-in-square">3</p>
+        <p
+          id="labelMarkAllRead"
+          class="text-mark-allread"
+          onclick="markAllRead()"
+        >
+          Mark all as read
+        </p>
+      </div>
+
+      <div class="main-content-notif">
+        <div class="content-notif">
+          <img
+            class="img-avatar"
+            src="./assets/images/avatar-mark-webber.webp"
+          />
+          <div class="content-notif-detail">
+            <div class="content-notif-unread-marker">
+              <p>
+                <span class="user-name">Mark Webber</span> reacted to your
+                recent post <span class="post">My first tournament today!</span>
+              </p>
+              <p class="unread-marker"></p>
+            </div>
+
+            <p class="notif-time">5m ago</p>
+          </div>
+        </div>
+
+        <div class="content-notif">
+          <img
+            class="img-avatar"
+            src="./assets/images/avatar-angela-gray.webp"
+          />
+          <div class="content-notif-detail">
+            <div class="content-notif-unread-marker">
+              <p><span class="user-name"> Angela Gray </span>followed you</p>
+              <p class="unread-marker"></p>
+            </div>
+            <p class="notif-time">1m ago</p>
+          </div>
+        </div>
+
+        <div class="content-notif">
+          <img
+            class="img-avatar"
+            src="./assets/images/avatar-jacob-thompson.webp"
+          />
+          <div class="content-notif-detail">
+            <div class="content-notif-unread-marker">
+              <p>
+                <span class="user-name"> Jacob Thompson </span>has joined your
+                group<span class="grup-name"> Chess Club</span>
+              </p>
+              <div class="unread-marker"></div>
+            </div>
+
+            <p class="notif-time">1 day ago</p>
+          </div>
+        </div>
+
+        <div class="content-notif-read">
+          <img
+            class="img-avatar"
+            src="./assets/images/avatar-rizky-hasanuddin.webp"
+          />
+          <div class="content-notif-detail">
+            <p>
+              <span class="user-name"> Rizky Hasanuddin </span>sent you a
+              private message
+            </p>
+            <p class="notif-time">5 days ago</p>
+          </div>
+        </div>
+
+        <div class="message-detail">
+          Hello, thanks for setting up the Chess Club. I've been a member for a
+          few weeks now and I'm already having lots of fun and improving my
+          game.
+        </div>
+
+        <div class="content-notif-read">
+          <img
+            class="img-avatar"
+            src="./assets/images/avatar-kimberly-smith.webp"
+          />
+          <div class="content-notif-detail">
+            <p>
+              <span class="user-name"> Kimberly Smith </span>commented on your
+              picture
+            </p>
+            <p class="notif-time">1 week ago</p>
+          </div>
+          <img
+            class="img-comment-picture"
+            src="./assets/images/image-chess.webp"
+          />
+        </div>
+
+        <div class="content-notif-read">
+          <img
+            class="img-avatar"
+            src="./assets/images/avatar-nathan-peterson.webp"
+          />
+          <div class="content-notif-detail">
+            <p>
+              <span class="user-name"> Nathan Peterson </span>reacted to your
+              recent post
+              <span class="post"
+                >5 end-game strategies to increase your win rate</span
+              >
+            </p>
+            <p class="notif-time">2 weeks ago</p>
+          </div>
+        </div>
+
+        <div class="content-notif-read">
+          <img class="img-avatar" src="./assets/images/avatar-anna-kim.webp" />
+          <div class="content-notif-detail">
+            <p>
+              <span class="user-name"> Anna Kim </span>left the group<span
+                class="grup-name"
+              >
+                Chess Club</span
+              >
+            </p>
+            <p class="notif-time">2 weeks ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Zhou Han Bao @ end of Dec 2023</a>.
+    </div>
+  </body>
+</html>
